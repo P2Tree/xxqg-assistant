@@ -1,5 +1,4 @@
 import os
-import subprocess
 import time
 import datetime
 import json
@@ -7,51 +6,7 @@ import requests
 import readline
 from beepy import beep
 
-def say(something):
-    print(something)
-    #  os.system('say "' + something + '"')
-    p = subprocess.Popen(['say', something])
-    return p
-def goon(p):
-    p.wait()
-    p1 = say("输入回车键继续")
-    wait = input()
-    p.kill()
-    p1.kill()
-def num2hanzi(n):
-    if n == 0:
-        return "零"
-    elif n == 1:
-        return "一"
-    elif n == 2:
-        return "二"
-    elif n == 3:
-        return "三"
-    elif n == 4:
-        return "四"
-    elif n == 5:
-        return "五"
-    elif n == 6:
-        return "六"
-    elif n == 7:
-        return "七"
-    elif n == 8:
-        return "八"
-    elif n == 9:
-        return "九"
-    else:
-        return ""
-def tiaozhanSearch(keyWord):
-    url = 'https://api.deeract.com/l2s/api/questions?keyword=' + keyWord
-    result = requests.get(url)
-    user_dict = json.loads(result.text)
-    #  print("搜索到" + str(len(user_dict)) + "个结果")
-    answer = []
-    for i in user_dict:
-        answer.append(i['title'])
-        #  print(i['title'])
-    return answer
-
+from utils import say, goon, num2hanzi, tiaozhanSearch
 
 time_start = time.time()
 p = say("欢迎使用学习强国引导助手")
@@ -87,8 +42,7 @@ while True:
     if sel == '1' or sel == '0':
         times = 6
         print("------ 阅读文章次数得分任务 ------")
-        p = say("阅读6篇未阅读过的文章，每篇阅读至少5秒,  \n请选择一篇未阅读过的文章")
-        goon(p)
+        goon("阅读6篇未阅读过的文章，每篇阅读至少5秒,  \n请选择一篇未阅读过的文章")
         ts = 5  # second
         while True:
             say("阅读第" + str(7-times) + "篇文章")
@@ -96,15 +50,13 @@ while True:
             times = times - 1
             if not times:
                 break
-            p = say("请选择下一篇未阅读过的文章")
-            goon(p)
+            goon("请选择下一篇未阅读过的文章")
         beep('coin')
         p = say("恭喜已完成：阅读文章次数得分任务")
         p.wait()
     if sel == '2' or sel == '0':
         print("------ 阅读文章时间得分任务 ------")
-        p = say("选择一篇未阅读过的文章，阅读12分钟，小心不要熄屏哟")
-        goon(p)
+        goon("选择一篇未阅读过的文章，阅读12分钟，小心不要熄屏哟")
         ts = 12
         say("开始阅读")
         time.sleep(int(ts)*60)
@@ -114,8 +66,7 @@ while True:
     if sel == '3' or sel == '0':
         print("------ 观看视频次数得分任务 ------")
         times = 6
-        p = say("观看6个未观看过的视频，每个观看至少5秒 \n请选择一个未观看过的视频")
-        goon(p)
+        goon("观看6个未观看过的视频，每个观看至少5秒 \n请选择一个未观看过的视频")
         ts = 5
         while True:
             say("观看第" + str(7-times) + "个视频")
@@ -123,15 +74,13 @@ while True:
             times = times - 1
             if not times:
                 break
-            p = say("请选择下一个未观看过的视频")
-            goon(p)
+            goon("请选择下一个未观看过的视频")
         beep('coin')
         p = say("恭喜已完成：观看视频次数得分任务")
         p.wait()
     if sel == '4' or sel == '0':
         print("------ 观看视频时间得分任务 ------")
-        p = say("请打开今天的新闻联播，观看至少18分钟")
-        goon(p)
+        goon("请打开今天的新闻联播，观看至少18分钟")
         ts = 18
         say("开始观看")
         time.sleep(int(ts)*60)
@@ -140,8 +89,7 @@ while True:
         p.wait()
     if sel == '5' or sel == '0':
         print("------ 每日答题得分任务 ------")
-        p = say("请完成每日答题，一定要至少答对10道题呦,  \n请完成后")
-        goon(p)
+        goon("请完成每日答题，一定要至少答对10道题呦,  \n请完成后")
         beep('coin')
         p = say("恭喜已完成：每日答题得分任务")
         p.wait()
@@ -158,15 +106,13 @@ while True:
                 p = say("今天是周日，每周答题任务不必完成")
                 p.wait()
         else:
-            p = say("请完成每周答题，要小心别手残答错哟,  \n请完成后")
-            goon(p)
+            goon("请完成每周答题，要小心别手残答错哟,  \n请完成后")
             beep('coin')
             p = say("恭喜已完成：每周答题得分任务")
             p.wait()
     if sel == '7' or sel == '0':
         print("------ 专项答题得分任务 ------")
-        p = say("请去检查一下有没有专项答题新题，建议每次只答一份,  \n请完成后")
-        goon(p)
+        goon("请去检查一下有没有专项答题新题，建议每次只答一份,  \n请完成后")
         beep('coin')
         p = say("恭喜已完成：专项答题得分任务")
         p.wait()
@@ -190,15 +136,13 @@ while True:
         p.wait()
     if sel == '9' or sel == '0':
         print("------ 评论、点赞、收藏、订阅得分任务 ------")
-        p = say("请打开一篇未阅读的文章，评论2次，点赞2次，收藏2次, \n请自主决定是否需订阅新的强国号,  \n请完成后")
-        goon(p)
+        goon("请打开一篇未阅读的文章，评论2次，点赞2次，收藏2次, \n请自主决定是否需订阅新的强国号,  \n请完成后")
         beep('coin')
         p = say("恭喜已完成：评论、点赞、收藏、订阅得分任务")
         p.wait()
     if sel == '10' or sel == '0':
         print("------ 观看本地频道得分任务 ------")
-        p = say("请打开本地频道，并至少瞅一眼 \n请完成后")
-        goon(p)
+        goon("请打开本地频道，并至少瞅一眼 \n请完成后")
         beep('coin')
         p = say("恭喜已完成：观看本地频道得分任务")
         p.wait()
