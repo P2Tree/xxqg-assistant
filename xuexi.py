@@ -1,8 +1,6 @@
 import os
 import time
 import datetime
-import json
-import requests
 import readline
 from beepy import beep
 
@@ -56,7 +54,7 @@ while True:
         p.wait()
     if sel == '2' or sel == '0':
         print("------ 阅读文章时间得分任务 ------")
-        goon("选择一篇未阅读过的文章，阅读12分钟，小心不要熄屏哟")
+        goon("选择一篇文章，阅读12分钟，小心不要熄屏哟")
         ts = 12
         say("开始阅读")
         time.sleep(int(ts)*60)
@@ -66,7 +64,7 @@ while True:
     if sel == '3' or sel == '0':
         print("------ 观看视频次数得分任务 ------")
         times = 6
-        goon("观看6个未观看过的视频，每个观看至少5秒 \n请选择一个未观看过的视频")
+        goon("观看6个未观看过的视频，每个观看至少5秒， \n请选择一个未观看过的视频")
         ts = 5
         while True:
             say("观看第" + str(7-times) + "个视频")
@@ -136,7 +134,7 @@ while True:
         p.wait()
     if sel == '9' or sel == '0':
         print("------ 评论、点赞、收藏、订阅得分任务 ------")
-        goon("请打开一篇未阅读的文章，评论2次，点赞2次，收藏2次, \n请自主决定是否需订阅新的强国号,  \n请完成后")
+        goon("请打开一篇文章，评论2次，点赞2次，收藏2次, \n请自主决定是否需订阅新的强国号,  \n请完成后")
         beep('coin')
         p = say("恭喜已完成：评论、点赞、收藏、订阅得分任务")
         p.wait()
