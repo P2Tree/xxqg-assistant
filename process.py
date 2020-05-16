@@ -2,7 +2,6 @@ import datetime
 import time
 from beepy import beep
 import readline
-import sqlite3
 
 from utils import say, goon, num2hanzi, tiaozhanSearch
 
