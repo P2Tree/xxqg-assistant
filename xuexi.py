@@ -6,9 +6,8 @@ from process import p_read_article_by_num, p_read_article_by_time, \
                     p_watch_video_by_num, p_watch_video_by_time, \
                     p_daily_answer, p_weekend_answer, \
                     p_specific_answer, p_challenge_answer, \
-                    p_likesome, p_watch_local_video
+                    p_likesome, p_watch_local_video, p_guide_all
 
-time_start = time.time()
 p = say("欢迎使用学习强国引导助手")
 p.wait()
 
@@ -39,31 +38,31 @@ while True:
         sel = input()
         p.kill()
 
-    if sel == '1' or sel == '0':
+    if sel == '1':
         p_read_article_by_num()
-    if sel == '2' or sel == '0':
+    if sel == '2':
         p_read_article_by_time()
-    if sel == '3' or sel == '0':
+    if sel == '3':
         p_watch_video_by_num()
-    if sel == '4' or sel == '0':
+    if sel == '4':
         p_watch_video_by_time()
-    if sel == '5' or sel == '0':
+    if sel == '5':
         p_daily_answer()
-    if sel == '6' or sel == '0':
+    if sel == '6':
         p_weekend_answer()
-    if sel == '7' or sel == '0':
+    if sel == '7':
         p_specific_answer()
-    if sel == '8' or sel == '0':
+    if sel == '8':
         p_challenge_answer()
-    if sel == '9' or sel == '0':
+    if sel == '9':
         p_likesome()
-    if sel == '10' or sel == '0':
+    if sel == '10':
         p_watch_local_video()
     if sel == '0':
+        time_start = time.time()
+        p_guide_all()
         time_end = time.time()
         time_during = (time_end - time_start) / 60    # min
-        p = say("已完成今日全部学习任务")
-        p.wait()
         p = say("总用时" + str(int(time_during)) + "分钟")
         p.wait()
     if sel == 'x' or sel == '0':

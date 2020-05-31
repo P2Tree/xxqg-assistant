@@ -8,10 +8,11 @@ def say(something):
     p = subprocess.Popen(['say', something])
     return p
 
-def goon(s):
-    p = say(s + ", \n输入回车键继续")
-    input()
+def goon(s, end = "输入回车键继续"):
+    p = say(s + ", \n" + end)
+    r = input()
     p.kill()
+    return r
 
 def num2hanzi(n):
     if n == 0:
