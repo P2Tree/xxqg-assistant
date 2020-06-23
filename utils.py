@@ -4,7 +4,6 @@ import json
 
 def say(something):
     print(something)
-    #  os.system('say "' + something + '"')
     p = subprocess.Popen(['say', something])
     return p
 

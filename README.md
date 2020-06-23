@@ -18,18 +18,6 @@
 - 你需要一台运行MacOS的电脑
 - 使用MacOS上的say软件完成语音功能
 - 你需要安装python3
-- 需要安装软件依赖的其他包，目前包括：
-
-  - time
-  - datetime
-  - utils
-  - beepy
-  - readline
-  - subprocess
-  - requests
-  - json
-
-  大多数包是内置的，如果你可以使用pip，安装会很简单
 
 ## 使用方法
 

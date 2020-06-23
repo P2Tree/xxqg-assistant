@@ -144,7 +144,7 @@ def p_guide_all():
     p_challenge_answer()
     p_likesome()
 
-    p_read_article_by_num(4)  # 这里只需要看 4 篇，另外 2 篇在文章时长任务和点赞任务中完成
+    p_read_article_by_num(5)  # 这里只需要看 5 篇，另外 1 篇在点赞任务中完成
     p_read_article_by_time()
     p_watch_local_video()
 

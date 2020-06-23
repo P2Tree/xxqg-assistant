@@ -1,12 +1,15 @@
 import time
 
-from utils import say
+from utils import say, goon
 
 from process import p_read_article_by_num, p_read_article_by_time, \
                     p_watch_video_by_num, p_watch_video_by_time, \
                     p_daily_answer, p_weekend_answer, \
                     p_specific_answer, p_challenge_answer, \
                     p_likesome, p_watch_local_video, p_guide_all
+
+from things import completed_todo
+from coffers import Connect_to_coffers
 
 p = say("欢迎使用学习强国引导助手")
 p.wait()
@@ -66,6 +69,16 @@ while True:
         p = say("总用时" + str(int(time_during)) + "分钟")
         p.wait()
     if sel == 'x' or sel == '0':
+        # qiandao to coffers
+        site = "http://ylm.pythonanywhere.com"
+        ctc = Connect_to_coffers(site)
+        r = ctc.qiandao(True)
+        if r == 200:
+            p = say("已通知 coffers 标记完成任务")
+        else:
+            p = say("未联系到 coffers，标记失败")
+        p.wait()
+
         say("程序正在退出，祝您生活愉快")
         p.wait()
         exit(1)
