@@ -2,8 +2,8 @@ import time
 
 from utils import say, goon
 
-from process import p_read_article_by_num, p_read_article_by_time, \
-                    p_watch_video_by_num, p_watch_video_by_time, \
+from process import p_read_article, \
+                    p_watch_video, p_watch_video, \
                     p_daily_answer, p_weekend_answer, \
                     p_specific_answer, p_challenge_answer, \
                     p_likesome, p_watch_local_video, p_guide_all
@@ -17,18 +17,18 @@ p.wait()
 while True:
 
     print("=============引导菜单==============")
-    print("      0. 引导全部得分任务")
-    print("    1. 阅读文章次数得分任务")
-    print("    2. 阅读文章时间得分任务")
-    print("    3. 观看视频次数得分任务")
-    print("    4. 观看视频时间得分任务")
+    print("      0. 全部得分任务")
+    print("      1. 全部得分任务与足额点点通")
+    print("      2. 阅读文章得分任务")
+    print("      3. 观看视频次数得分任务")
+    print("      4. 观看视频时间得分任务")
     print("      5. 每日答题得分任务")
     print("      6. 每周答题得分任务")
     print("      7. 专项答题得分任务")
     print("      8. 挑战答题得分任务")
-    print("  9. 评论点赞收藏订阅得分任务")
-    print("   10. 观看本地频道得分任务")
-    print("          x. 退出程序")
+    print("      9. 评论分享订阅得分任务")
+    print("      10. 观看本地频道得分任务")
+    print("      x. 退出程序")
     print("===================================")
     p = say("请输入数字选择引导得分任务")
     sel = input()
@@ -41,14 +41,12 @@ while True:
         sel = input()
         p.kill()
 
-    if sel == '1':
-        p_read_article_by_num()
     if sel == '2':
-        p_read_article_by_time()
+        p_read_article(6, 60)  # 阅读 6 篇，每篇 60 秒
     if sel == '3':
-        p_watch_video_by_num()
+        p_watch_video(6, 3)  # 收听 6 个，每个 3 秒
     if sel == '4':
-        p_watch_video_by_time()
+        p_watch_video(1, 6*60)  # 收听 1 个，需 6 分钟
     if sel == '5':
         p_daily_answer()
     if sel == '6':
@@ -61,14 +59,30 @@ while True:
         p_likesome()
     if sel == '10':
         p_watch_local_video()
-    if sel == '0':
+    if sel == '0' or sel == '1':
         time_start = time.time()
-        p_guide_all()
+
+        p_daily_answer()
+        p_weekend_answer()
+        p_specific_answer()
+        print("提示：点点通任务需要答对 15 道挑战答题题目")
+        p_challenge_answer()
+        p_likesome()
+        p_watch_local_video()
+        p_read_article(6, 60)  # 阅读 6 篇，每篇 60 秒
+        p_watch_video(6, 60)  # 收听 6 个，每个 60 秒
+
+        if sel == '1':
+            print("提示：点点通任务需要阅读 12 篇文章、观看 12 个视频")
+            p_read_article(6, 5)  # 阅读 6 篇，每篇 5 秒
+            p_watch_video(6, 5)  # 收听 6 个，每个 5 秒
+
         time_end = time.time()
         time_during = (time_end - time_start) / 60    # min
         p = say("总用时" + str(int(time_during)) + "分钟")
         p.wait()
-    if sel == 'x' or sel == '0':
+
+    if sel == 'x' or sel == '0' or sel == '1':
         # qiandao to coffers
         site = "http://ylm.pythonanywhere.com"
         ctc = Connect_to_coffers(site)

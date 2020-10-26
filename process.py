@@ -5,11 +5,9 @@ import readline
 
 from utils import say, goon, num2hanzi, tiaozhanSearch
 
-def p_read_article_by_num(times = 6):
-    #  times = 6
-    print("------ 文章学习次数得分任务 ------")
-    goon("阅读" + str(times) + "篇未阅读过的文章，每篇阅读至少5秒,  \n请选择一篇未阅读过的文章")
-    ts = 5  # second
+def p_read_article(times = 6, ts = 60):
+    print("------ 文章学习得分任务 ------")
+    goon("阅读" + str(times) + "篇新文章，每篇阅读" + str(ts) + "秒，\n请选择一篇未阅读过的文章")
     t = 1
     while True:
         say("阅读第" + str(t) + "篇文章")
@@ -17,26 +15,14 @@ def p_read_article_by_num(times = 6):
         t = t + 1
         if t > times:
             break
-        goon("请选择下一篇未阅读过的文章")
+        goon("请选择下一篇文章")
     beep('coin')
     p = say("恭喜已完成该任务")
     p.wait()
 
-def p_read_article_by_time():
-    print("------ 文章学习时间得分任务 ------")
-    goon("选择一篇文章，阅读12分钟，小心不要熄屏哟")
-    ts = 12
-    say("开始阅读")
-    time.sleep(int(ts)*60)
-    beep('coin')
-    p = say("恭喜已完成该任务")
-    p.wait()
-
-def p_watch_video_by_num(times = 6):
-    print("------ 视听学习次数得分任务 ------")
-    #  times = 6
-    goon("观看" + str(times) + "个未观看过的视频，每个观看至少5秒， \n请选择一个未观看过的视频")
-    ts = 5
+def p_watch_video(times = 6, ts = 60):
+    print("------ 视听学习得分任务 ------")
+    goon("观看" + str(times) + "个新视频，每个观看" + str(ts) + "秒， \n请选择一个未观看过的视频")
     t = 1
     while True:
         say("观看第" + str(t) + "个视频")
@@ -44,59 +30,41 @@ def p_watch_video_by_num(times = 6):
         t = t + 1
         if t > times:
             break
-        goon("请选择下一个未观看过的视频")
-    beep('coin')
-    p = say("恭喜已完成该任务")
-    p.wait()
-
-def p_watch_video_by_time(score = 6):
-    print("------ 视听学习时间得分任务 ------")
-    ts = score * 3  # 目前每 3 分钟得 1 分
-    goon("请打开今天的新闻联播，观看至少" + str(ts) + "分钟")
-    say("开始观看")
-    time.sleep(int(ts)*60)
+        goon("请选择下一个视频")
     beep('coin')
     p = say("恭喜已完成该任务")
     p.wait()
 
 def p_daily_answer():
     print("------ 每日答题得分任务 ------")
-    goon("请完成每日答题，一定要至少答对10道题呦,  \n请完成后")
+    goon("完成每日答题，\n请完成后")
     beep('coin')
     p = say("恭喜已完成该任务")
     p.wait()
 
 def p_weekend_answer():
     print("------ 每周答题得分任务 ------")
-    print("备注：本系统默认设置为每周一完成每周答题任务")
+    print("提示：本系统默认设置为每周一完成每周答题任务")
     wd = datetime.datetime.now().weekday()
-    if wd != 0:
-        if wd != 6:
-            weekday_hanzi = num2hanzi(wd+1)
-            p = say("今天是周" + weekday_hanzi + "，每周答题任务不必完成")
-            p.wait()
-        else:
-            p = say("今天是周日，每周答题任务不必完成")
-            p.wait()
-    else:
-        goon("请完成每周答题，要小心别手残答错哟,  \n请完成后")
+    if wd == 0: # 周一
+        goon("完成每周答题，要小心别手残答错哟,  \n请完成后")
         beep('coin')
         p = say("恭喜已完成该任务")
         p.wait()
 
 def p_specific_answer():
     print("------ 专项答题得分任务 ------")
-    goon("请去检查一下有没有专项答题新题，建议每次只答一份,  \n请完成后")
+    goon("检查一下有没有专项答题新题，当天只需答一份,  \n请完成后")
     beep('coin')
     p = say("恭喜已完成该任务")
     p.wait()
 
 def p_challenge_answer():
     print("------ 挑战答题得分任务 ------")
-    p = say("请完成挑战答题，一定要连续至少答对5道题2次或10道题1次呦")
+    p = say("完成挑战答题，输入 x 退出查询")
     p.wait()
     while True:
-        p = say("请输入查询关键字(输入x退出查询)：")
+        p = say("请输入关键字：")
         keyWord = input()
         p.kill()
         if keyWord == 'x':
@@ -121,15 +89,16 @@ def p_challenge_answer():
     p.wait()
 
 def p_likesome():
-    print("------ 评论、点赞、收藏、订阅得分任务 ------")
-    goon("请打开一篇文章，评论2次，点赞2次，收藏2次, \n请自主决定是否需订阅新的强国号,  \n请完成后")
+    print("------ 评论、转发、订阅得分任务 ------")
+    print("提示：强国号多订阅无效")
+    goon("选择一篇文章，评论 1 次，转发 2 次, 选择订阅 2 个新的强国号,  \n请完成后")
     beep('coin')
     p = say("恭喜已完成该任务")
     p.wait()
 
 def p_watch_local_video():
     print("------ 观看本地频道得分任务 ------")
-    goon("请打开本地频道，并至少瞅一眼，\n请完成后")
+    goon("打开本地频道，至少瞅一眼，\n请完成后")
     beep('coin')
     p = say("恭喜已完成该任务")
     p.wait()
