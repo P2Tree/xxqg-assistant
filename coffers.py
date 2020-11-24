@@ -3,15 +3,25 @@ from urllib import request as urllib2
 import urllib
 import re
 from http import cookiejar as cookielib
+import json
 
 class Connect_to_coffers():
 
-    def __init__(self, site):
-        self.baseurl = site
+    def __init__(self):
+        with open("coffers.cfg") as cof:
+            self.cfgs = json.load(cof)
+
+        self.baseurl = self.cfgs["site"]
         self.url = self.baseurl + "/xuexi/qiandao/"
         self.login_url = self.baseurl + "/accounts/login/?next=/xuexi/"
         self.logout_url = self.baseurl + "/accounts/logout/"
         self.cookie_name = "cookie.txt"
+
+    def is_open(self):
+        if self.cfgs["site"] == "":
+            return False
+
+        return True
 
     def qiandao(self, complete):
         if complete:
@@ -31,12 +41,11 @@ class Connect_to_coffers():
         headers = [('User-Agent', 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.86 Safari/537.36')]
         headers.append(('csrftoken', csrf))
 
-        data = {"username": "ylm",
-                "password": "yangliuming",
-                "csrfmiddlewaretoken": csrf,
-                #  "lt": lt,
-                "renew": 'False',
-                "warn": 'on'}
+        data = {"username": self.cfgs["username"],
+                "password": self.cfgs["password"],
+                "csrfmiddlewaretoken": self.cfgs["csrf"],
+                "renew": self.cfgs["renew"],
+                "warn": self.cfgs["warn"]}
 
         cookie = cookielib.MozillaCookieJar()
         cookie.load(self.cookie_name, ignore_discard=True, ignore_expires=True)
@@ -65,10 +74,8 @@ class Connect_to_coffers():
         #  print(lt)
         return csrf[0]#, lt[0]
 
-if __name__ == "__main__":
-    site = "http://127.0.0.1:8000"
-    #  site = "http://ylm.pythonanywhere.com"
-    ctc = Connect_to_coffers(site)
+#  if __name__ == "__main__":
+    #  ctc = Connect_to_coffers()
     #  r = ctc.qiandao(True)
     #  print(r)
     #  if r == 200:
@@ -76,5 +83,5 @@ if __name__ == "__main__":
     #  else:
         #  print("qiandao failed, return code: " + str(r))
     #  ctc.login()
-    ctc.logout()
+    #  ctc.logout()
 
