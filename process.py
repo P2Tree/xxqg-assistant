@@ -103,6 +103,13 @@ def p_watch_local_video():
     p = say("恭喜已完成该任务")
     p.wait()
 
+def p_fightforup_answer():
+    print("------ 争上游/双人对战得分任务 ------")
+    goon("完成争上游答题和双人对战答题，祝你好运，\n请完成后")
+    beep('coin')
+    p = say("恭喜已完成该任务")
+    p.wait()
+
 def p_guide_all():
     print("------ 视听学习得分任务 ------")
     goon("请打开电台，选择一个未听过的大于6首歌曲的专辑，并后台播放")
